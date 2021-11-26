@@ -8,7 +8,6 @@ REPO_GRADLE=/c/ncv-androidtv/flutter_exoplayer/nikonikotv/android/app/build.grad
 red=`tput setaf 1`
 green=`tput setaf 2`
 reset=`tput sgr0`
-# echo "${red}red text ${green}green text${reset}"
 
 #Current Date
 _now=$(date +"%m_%d_%Y")
@@ -30,8 +29,12 @@ DIR=${REPO_GRADLE%$BASE}  #=> "(dirpath without the build.gradle part)"
 OLD=build.gradle.BAK
 
 if test -f "$REPO_GRADLE"; then
-    echo "${green}Repository $BASE exists.${reset} Creating $_now$OLD"
+    echo "${green}Repository $BASE exists.${reset}"
+    echo "Creating $_now$OLD"
+    echo "Done"
+    echo "Initiate backing up file..."
     mv $REPO_GRADLE $DIR$_now$OLD
+    echo "Done"
 else
     echo "${red}repo build.gradle not found, are you sure you have the right path?${reset}"
     echo "Checked $DIR"
@@ -41,8 +44,7 @@ fi
 # Step 3: Copying
 echo "Copying and overwriting..."
 cp $LOCAL_GRADLE $DIR
+echo "Done"
 
 # Step 4: For debugging purposes, echo gradle status
 echo ${green}Gradle copied to production${reset}
-echo ${green}SUCCESS${reset}
-echo "========================================="
