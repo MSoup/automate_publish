@@ -39,16 +39,27 @@ copy_pubspec_to_prod() {
     cp $DIR $PRODUCTION_PUBSPEC
 }
 
+# Call copy_gradle.sh script
 copy_gradle_to_prod() {
     source copy_gradle.sh
 }
-
+# Call establish_keystore.sh script
 establish_keystore() {
     source establish_keystore.sh
     echo "========================================="
     echo "Complete"
 }
 
+# build from repo with everything in place
+build() {
+    echo "Attempting to build..."
+    cd /c/ncv-androidtv/flutter_exoplayer/nikonikotv
+    flutter build appbundle
+    echo "Complete"
+    exit 0
+}
+
 copy_pubspec_to_prod $DIR
 copy_gradle_to_prod
 establish_keystore
+build
