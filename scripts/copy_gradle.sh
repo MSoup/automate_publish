@@ -1,40 +1,48 @@
 #!/bin/bash
 
-PRODUCTION_GRADLE=/c/cp2dependencies/nikonikotv-android-app/build.gradle
+# Directories
+LOCAL_GRADLE=/c/cp2dependencies/nikonikotv-android-app/build.gradle
 REPO_GRADLE=/c/ncv-androidtv/flutter_exoplayer/nikonikotv/android/app/build.gradle
+
+# Setting up error display handling
+red=`tput setaf 1`
+green=`tput setaf 2`
+reset=`tput sgr0`
+# echo "${red}red text ${green}green text${reset}"
 
 #Current Date
 _now=$(date +"%m_%d_%Y")
 
 # Step 1: Check that production build.gradle exists
-echo "Copying gradle"
-echo "Looking for build.gradle in $PRODUCTION_GRADLE"
+echo "Initiate copying gradle"
+echo "Looking for build.gradle in $LOCAL_GRADLE"
 
-if test -f "$PRODUCTION_GRADLE"; then
-    echo "File found, proceeding..."
+if test -f "$LOCAL_GRADLE"; then
+    echo "${green}Local build.gradle found, proceeding...${reset}"
 else
-    echo "Error. Is there a $PRODUCTION_GRADLE file?"
+    echo "${red}Error. Is there a $LOCAL_GRADLE file?${reset}"
     exit 1
 fi
 
 # Step 2: Check that repo gradle exists
 BASE=${REPO_GRADLE##*/}   #=> "build.gradle" (basepath)
-DIR=${REPO_GRADLE%$BASE}  #=> "/c/cp2-androidtv-playpause_androidtv/flutter_exoplayer/nikonikotv/android/app/" (dirpath)
+DIR=${REPO_GRADLE%$BASE}  #=> "(dirpath without the build.gradle part)"
 OLD=build.gradle.BAK
 
 if test -f "$REPO_GRADLE"; then
-    echo "$BASE exists. Creating $_now$OLD"
+    echo "${green}Repository $BASE exists.${reset} Creating $_now$OLD"
     mv $REPO_GRADLE $DIR$_now$OLD
 else
-    echo "repo build.gradle not found, are you sure you have the right path?"
-    echo "Checked /c/cp2-androidtv-playpause_androidtv/flutter_exoplayer/nikonikotv/android/app/"
+    echo "${red}repo build.gradle not found, are you sure you have the right path?${reset}"
+    echo "Checked $DIR"
     exit 3
 fi
 
 # Step 3: Copying
 echo "Copying and overwriting..."
-cp $PRODUCTION_GRADLE $DIR
+cp $LOCAL_GRADLE $DIR
 
 # Step 4: For debugging purposes, echo gradle status
-MATCH=*.gradle
-ls -ltr $DIR$MATCH
+echo ${green}Gradle copied to production${reset}
+echo ${green}SUCCESS${reset}
+echo "========================================="
