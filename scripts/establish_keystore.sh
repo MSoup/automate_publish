@@ -1,17 +1,10 @@
 #!/bin/bash
 
-# Directories
-LOCAL_KEYSTORE_PROPERTIES=/c/cp2dependencies/keystoreProperties/keystore.properties
-LOCAL_KEYS=/c/cp2dependencies/keys/cp2keystore.jks
-REPO_KEYSTORE_PROPERTIES=/c/git/cp2-androidtv/nikonikotv/android/keystore.properties
-REPO_KEYS=/c/git/cp2-androidtv/nikonikotv/android/app/cp2keystore.jks
-
 # Setting up error display handling
 red=`tput setaf 1`
 green=`tput setaf 2`
 reset=`tput sgr0`
 flag="false"
-# echo "${red}red text ${green}green text${reset}"
 
 # Step 1: Check if keystore exists on repo
 echo "Initiate establishing keystore files"
@@ -20,7 +13,6 @@ if test -f "$LOCAL_KEYSTORE_PROPERTIES" && test -f "$LOCAL_KEYS"; then
     flag="true"
 else
     echo "No local keystore/keys to copy, over this might be a problem if production doesn't have them either"
-
 fi
 
 
