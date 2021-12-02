@@ -2,7 +2,7 @@
 
 # Directories
 LOCAL_GRADLE=/c/cp2dependencies/nikonikotv-android-app/build.gradle
-REPO_GRADLE=/c/ncv-androidtv/flutter_exoplayer/nikonikotv/android/app/build.gradle
+REPO_GRADLE=/c/git/cp2-androidtv/nikonikotv/android/app/build.gradle
 
 # Setting up error display handling
 red=`tput setaf 1`
