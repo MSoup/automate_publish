@@ -35,11 +35,10 @@ copy_pubspec() {
         echo "${green}File production pubspec.yaml found${reset}"
 
         echo "Initiate increment local pubspec version by 1... "
-        python updateVersion.py $LOCAL_DIR
-
-        echo "Copying..."
-        cp $LOCAL_DIR $PRODUCTION_PUBSPEC
-
+        if python updateVersion.py $LOCAL_DIR; then
+            echo "Copying..."
+            cp $LOCAL_DIR $PRODUCTION_PUBSPEC
+        fi
         echo "Done"
     else
         echo "${red}$PRODUCTION_PUBSPEC not found, exiting in case of bad errors${reset}"

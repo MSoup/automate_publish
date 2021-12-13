@@ -8,14 +8,14 @@ def writeNewVersion(fileName):
   f = open(fileName, mode='rt') 
 
   data = f.read()
-  p = "(version: )(0.0.0.)(\d+)"
+  p = "(version: )(\d+.\d+.\d+.)(\d+)"
 
   result = re.search(p,data)
 
   try: 
     type(result[0]) == str
   except:
-    print("Fatal error: version: 0.0.0+XX Not found in pubspec")
+    print("Fatal error: version: #.#.#+XX Not found in pubspec")
     exit(1)
 
   versionPlusOne = str(int(result.group(3)) + 1)
